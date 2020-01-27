@@ -1,17 +1,61 @@
 const express = require("express");
 const router = express.Router();
+const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
+const config = require("config");
+const auth = require("../middleware/auth");
+const { check, validationResult } = require("express-validator");
+
+const User = require("../models/User");
 
 // route  GET api/users/
-// desc   get all users
-router.post("/", (req, res) => {
-  res.send("get all users");
+// desc   get all users except current user
+// private
+router.get("/", auth, async (req, res) => {
+  try {
+    const users = await User.find({ _id: { $ne: req.user.id } }).sort({
+      role: "asc"
+    });
+    res.json(users);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server error");
+  }
 });
 
 // route  PUT api/users/:id
 // desc   Update user role
 // private
-router.put("/:id", (req, res) => {
-  res.send("update user role" + id);
+router.put("/:id/:role", auth, async (req, res) => {
+  let user = await User.findOneAndUpdate(
+    { _id: req.params.id },
+    { role: req.params.role },
+    {
+      new: true
+    }
+  );
+  await user.save();
+  res.send(user);
+});
+
+// route  POST api/users/:id
+// desc   confirm a user
+// private
+router.post("/:id", auth, async (req, res) => {
+  try {
+    let user = await User.findOneAndUpdate(
+      { _id: req.params.id },
+      { confirmed: true },
+      {
+        new: true
+      }
+    );
+    await user.save();
+    res.send(user);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server error");
+  }
 });
 
 // route  DELETE api/users/:id
