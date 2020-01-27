@@ -27,15 +27,20 @@ router.get("/", auth, async (req, res) => {
 // desc   Update user role
 // private
 router.put("/:id/:role", auth, async (req, res) => {
-  let user = await User.findOneAndUpdate(
-    { _id: req.params.id },
-    { role: req.params.role },
-    {
-      new: true
-    }
-  );
-  await user.save();
-  res.send(user);
+  try {
+    let user = await User.findOneAndUpdate(
+      { _id: req.params.id },
+      { role: req.params.role },
+      {
+        new: true
+      }
+    );
+
+    res.send(user);
+  } catch (error) {
+    console.error(err.message);
+    res.status(500).send("Server error");
+  }
 });
 
 // route  POST api/users/:id
@@ -50,7 +55,6 @@ router.post("/:id", auth, async (req, res) => {
         new: true
       }
     );
-    await user.save();
     res.send(user);
   } catch (err) {
     console.error(err.message);
@@ -61,8 +65,14 @@ router.post("/:id", auth, async (req, res) => {
 // route  DELETE api/users/:id
 // desc   delete user
 // private
-router.delete("/:id", (req, res) => {
-  res.send("delete a user" + id);
+router.delete("/:id", auth, async (req, res) => {
+  try {
+    await User.findByIdAndRemove({ _id: req.params.id });
+    res.json({ msg: "user removed" });
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server error");
+  }
 });
 
 module.exports = router;
