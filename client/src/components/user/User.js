@@ -1,8 +1,28 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
+import React, { useState, useEffect, useContext } from "react";
+import Users from "../users/Users";
+import AlertContext from "../../context/alert/alertContext";
+import AuthContext from "../../context/auth/authContext";
 
 const User = () => {
-  return <div className='container'>single user </div>;
+  const alertContext = useContext(AlertContext);
+  const authContext = useContext(AuthContext);
+
+  useEffect(() => {
+    authContext.loadUser();
+    // eslint-disable-next-line
+  }, []);
+
+  return (
+    <>
+      <div style={{ borderBottom: "2px solid black", margin: "5px" }}>
+        <h3 className=' text-primary'>Welcome to dash board!</h3>
+      </div>
+      <div>
+        <h3 className=' text-primary'>Users List</h3>
+        <Users />{" "}
+      </div>
+    </>
+  );
 };
 
 export default User;

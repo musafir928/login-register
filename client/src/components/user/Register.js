@@ -1,9 +1,28 @@
-import React, { Fragment, useState } from "react";
-import { Link, Redirect } from "react-router-dom";
-import axios from "axios";
+import React, { useState, useContext, useEffect } from "react";
+import { Link } from "react-router-dom";
+import AlertContext from "../../context/alert/alertContext";
+import AuthContext from "../../context/auth/authContext";
 
-const Register = () => {
-  const [formData, setFormData] = useState({
+const Register = props => {
+  const alertContext = useContext(AlertContext);
+  const authContext = useContext(AuthContext);
+
+  const { setAlert } = alertContext;
+  const { register, error, clearErrors, isAuthenticated } = authContext;
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      props.history.push("/user");
+    }
+
+    if (error === "user already exists with this email") {
+      setAlert(error, "danger");
+      clearErrors();
+    }
+    // eslint-disable-next-line
+  }, [error, isAuthenticated, props.history]);
+
+  const [user, setUser] = useState({
     name: "",
     email: "",
     email2: "",
@@ -11,34 +30,25 @@ const Register = () => {
     password2: ""
   });
 
-  const [redirect, setRedirect] = useState(false);
+  const { name, email, email2, password, password2 } = user;
 
-  const { name, email, email2, password, password2 } = formData;
+  const onChange = e => setUser({ ...user, [e.target.name]: e.target.value });
 
-  const onChange = e =>
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-
-  const onSubmit = async e => {
+  const onSubmit = e => {
     e.preventDefault();
-    if (password !== password2 || email !== email2) {
-      console.log("warning");
+    if (name === "" || email === "" || password === "") {
+      setAlert("Please enter all fields", "danger");
+    } else if (email !== email2) {
+      setAlert("emails don't match", "danger");
+    } else if (password !== password2) {
+      setAlert("passwords do not match", "danger");
     } else {
-      const body = JSON.stringify({ name, email, password });
-      const config = {
-        headers: {
-          "Content-Type": "application/json"
-        }
-      };
-      try {
-        setRedirect(true);
-      } catch (err) {
-        console.error(err);
-      }
+      register({ name, email, password });
     }
   };
 
   return (
-    <div className='container'>
+    <>
       <h1 className='large text-primary'>Sign Up</h1>
       <p className='lead'>
         <i className='fas fa-user' /> Create Your Account
@@ -96,7 +106,7 @@ const Register = () => {
       <p className='my-1'>
         Already have an account? <Link to='/login'>Sign In</Link>
       </p>
-    </div>
+    </>
   );
 };
 

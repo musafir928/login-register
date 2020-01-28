@@ -330,7 +330,6 @@ button {
 .navbar .welcome span {
   margin-right: 0.6rem;
 }
-
 /* Landing Page */
 .landing {
   position: relative;
@@ -348,6 +347,30 @@ button {
   align-items: center;
   justify-content: center;
   text-align: center;
+}
+
+.usercard {
+  margin: 2%;
+  padding: 1%;
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr 1fr;
+  grid-gap: 2%;
+  border-bottom: solid #17a2b8 2px;
+}
+
+.item-enter {
+  opacity: 0;
+}
+.item-enter-active {
+  opacity: 1;
+  transition: opacity 1000ms ease-in;
+}
+.item-exit {
+  opacity: 1;
+}
+.item-exit-active {
+  opacity: 0;
+  transition: opacity 1000ms ease-in;
 }
 
 /* Mobile Styles */
@@ -390,5 +413,15 @@ button {
 
   .navbar .welcome {
     display: none;
+  }
+
+  .usercard {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-gap: 2%;
+    text-align: center;
+    border: none;
+    background-color: brown;
+    /* overflow: hidden; */
   }
 }

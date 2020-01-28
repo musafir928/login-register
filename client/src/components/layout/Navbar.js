@@ -1,17 +1,24 @@
-import React, { useState, useEffect } from "react";
+import React, { Fragment, useState, useEffect, useContext } from "react";
 import { Link, Redirect } from "react-router-dom";
-import PropTypes from "prop-types";
+import AuthContext from "../../context/auth/authContext";
 
 const Navbar = () => {
+  const authContext = useContext(AuthContext);
+
+  const { isAuthenticated, logout, user } = authContext;
+
+  const onLogout = () => {
+    logout();
+  };
+
   const authLinks = (
     <ul>
+      <li>Hello {user && user.name}</li>
       <li>
-        <button onClick={() => <Redirect to='login' />}>
-          <Link to='/login'>
-            <i className='fas fa-sign-out-alt' />{" "}
-            <span className='hide-sm'>Logout</span>
-          </Link>
-        </button>
+        <a onClick={onLogout} href='#!'>
+          <i className='fas fa-sign-out-alt' />{" "}
+          <span className='hide-sm'>Logout</span>
+        </a>
       </li>
     </ul>
   );
@@ -34,16 +41,9 @@ const Navbar = () => {
           <i className='fas fa-home' /> Home
         </Link>
       </h1>
-      <>
-        {authLinks} {guestLinks}
-      </>
+      <>{isAuthenticated ? authLinks : guestLinks}</>
     </nav>
   );
-};
-
-Navbar.propTypes = {
-  title: PropTypes.string.isRequired,
-  icon: PropTypes.string
 };
 
 export default Navbar;
