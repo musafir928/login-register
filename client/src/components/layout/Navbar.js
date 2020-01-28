@@ -45,6 +45,9 @@ const Navbar = () => {
         <Link to='/'>
           <i className='fas fa-home' /> Home
         </Link>
+        <Link to='/about'>
+          <i className='fas fa-info' /> About
+        </Link>
       </h1>
       <>{isAuthenticated ? authLinks : guestLinks}</>
     </nav>

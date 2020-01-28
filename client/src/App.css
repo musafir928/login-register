@@ -47,6 +47,13 @@ img {
   border-radius: 10px;
 }
 
+.about {
+  padding: 5%;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  font-style: italic;
+}
+
 /* Text Styles*/
 .x-large {
   font-size: 4rem;
