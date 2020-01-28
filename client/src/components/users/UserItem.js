@@ -4,27 +4,31 @@ import UserContext from "../../context/user/userContext";
 
 const UserItem = ({ user }) => {
   const userContext = useContext(UserContext);
-  const { deleteUser, updateUser, confirmUser } = userContext;
+  const { deleteUser, updateUser, confirmUser, getUsers } = userContext;
 
-  const { name, email, confirmed, role, id } = user;
+  const { name, email, confirmed, role, _id } = user;
 
   const handleDelete = () => {
-    deleteUser(id);
+    deleteUser(_id);
+    getUsers();
   };
 
   const handleUpdate = () => {
-    updateUser(id, role);
+    const newRole = role === "admin" ? "user" : "admin";
+    updateUser(_id, newRole);
+    getUsers();
   };
 
   const handleConfirm = () => {
-    confirmUser(id);
+    confirmUser(_id);
+    getUsers();
   };
 
   return (
     <div className={"usercard " + role}>
       <h3 className='text-primary'>{name}</h3>
       <h3 className='text-primary'>{email}</h3>
-      {confirmed === "true" ? (
+      {confirmed === true ? (
         <button className='btn btn-primary' onClick={handleUpdate}>
           {role}
         </button>
