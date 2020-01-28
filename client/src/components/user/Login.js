@@ -44,7 +44,7 @@ const Login = props => {
   };
 
   return (
-    <>
+    <div className='container'>
       <h1 className='large text-primary'>Log In</h1>
       <p className='lead'>
         <i className='fas fa-user' /> Sign Into Your Account
@@ -75,7 +75,7 @@ const Login = props => {
       <p className='my-1'>
         Don't have an account? <Link to='/register'>Register</Link>
       </p>
-    </>
+    </div>
   );
 };
 

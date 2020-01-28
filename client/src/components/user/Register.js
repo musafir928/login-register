@@ -48,7 +48,7 @@ const Register = props => {
   };
 
   return (
-    <>
+    <div className='container'>
       <h1 className='large text-primary'>Sign Up</h1>
       <p className='lead'>
         <i className='fas fa-user' /> Create Your Account
@@ -106,7 +106,7 @@ const Register = props => {
       <p className='my-1'>
         Already have an account? <Link to='/login'>Sign In</Link>
       </p>
-    </>
+    </div>
   );
 };
 

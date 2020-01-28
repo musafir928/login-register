@@ -1,7 +1,15 @@
-import React from "react";
-import { Link, Redirect } from "react-router-dom";
+import React, { useContext } from "react";
+import { Redirect, Link } from "react-router-dom";
+import AuthContext from "../../context/auth/authContext";
 
 const Home = () => {
+  const authContext = useContext(AuthContext);
+
+  const { isAuthenticated } = authContext;
+
+  if (isAuthenticated) {
+    return <Redirect to='/user' />;
+  }
   return (
     <section className='landing'>
       <div className='dark-overlay'>

@@ -13,7 +13,7 @@ const User = () => {
   }, []);
 
   return (
-    <>
+    <div className='container'>
       <div style={{ borderBottom: "2px solid black", margin: "5px" }}>
         <h3 className=' text-primary'>Welcome to dash board!</h3>
       </div>
@@ -21,7 +21,7 @@ const User = () => {
         <h3 className=' text-primary'>Users List</h3>
         <Users />{" "}
       </div>
-    </>
+    </div>
   );
 };
 
