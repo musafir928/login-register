@@ -19,6 +19,7 @@ const Login = props => {
       setAlert(error, "danger");
       clearErrors();
     }
+
     // eslint-disable-next-line
   }, [error, isAuthenticated, props.history]);
 
@@ -44,7 +45,7 @@ const Login = props => {
   };
 
   return (
-    <div className='container'>
+    <div className='container frame'>
       <h1 className='large text-primary'>Log In</h1>
       <p className='lead'>
         <i className='fas fa-user' /> Sign Into Your Account

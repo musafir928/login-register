@@ -4,24 +4,21 @@ import UserContext from "../../context/user/userContext";
 
 const UserItem = ({ user }) => {
   const userContext = useContext(UserContext);
-  const { deleteUser, updateUser, confirmUser, getUsers } = userContext;
+  const { deleteUser, updateUser, confirmUser } = userContext;
 
   const { name, email, confirmed, role, _id } = user;
 
   const handleDelete = () => {
     deleteUser(_id);
-    getUsers();
   };
 
   const handleUpdate = () => {
     const newRole = role === "admin" ? "user" : "admin";
     updateUser(_id, newRole);
-    getUsers();
   };
 
   const handleConfirm = () => {
     confirmUser(_id);
-    getUsers();
   };
 
   return (

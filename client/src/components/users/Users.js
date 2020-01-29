@@ -32,7 +32,8 @@ const Users = () => {
         <h3 className=' text-primary'>Users List</h3>
         {users !== null && !loading ? (
           <TransitionGroup>
-            {user.role === "root" &&
+            {user !== null &&
+              user.role === "root" &&
               users.map(u => (
                 <CSSTransition key={u._id} timeout={500} classNames='item'>
                   <UserItem user={u} />

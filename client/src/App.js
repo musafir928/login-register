@@ -32,11 +32,7 @@ function App() {
                 <Route exact path='/register' component={Register} />
                 <Route exact path='/login' component={Login} />
                 <Route exact path='/about' component={About} />
-                <PrivateRoute
-                  exact
-                  path='/user'
-                  component={() => <User user={User} />}
-                />
+                <PrivateRoute exact path='/user' component={User} />
               </Switch>
             </>
           </Router>

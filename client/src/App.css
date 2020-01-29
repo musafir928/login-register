@@ -16,7 +16,7 @@ body {
   font-family: "Raleway", sans-serif;
   font-size: 1rem;
   line-height: 1.6;
-  background-color: #17a2b8;
+  background-color: #96cfff;
   color: floralwhite;
 }
 
@@ -380,6 +380,32 @@ button {
   transition: opacity 1000ms ease-in;
 }
 
+/* to follow the wire frame requirement from Settly*/
+.frame {
+  background-color: #f6f7f8;
+  text-align: center;
+  color: black;
+  box-shadow: none;
+  width: 40%;
+}
+
+.frame input {
+  background-color: #f6f7f8;
+  border-bottom: 1px solid #d1d2d3;
+  color: black;
+}
+
+.frame input[type="submit"] {
+  font: inherit;
+  background-color: #4585ce;
+  width: 50%;
+  color: white;
+}
+
+.frame h1 {
+  color: black;
+}
+
 /* Mobile Styles */
 @media (max-width: 700px) {
   .container {
@@ -430,5 +456,9 @@ button {
     border: none;
     background-color: brown;
     /* overflow: hidden; */
+  }
+
+  .frame {
+    width: 90%;
   }
 }
